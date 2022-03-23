@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:Ab123cd456@localhost:3306/rte_db"
+}
+
+model Users {
+  id         Int        @id @default(autoincrement())
+  firstname  String?
+  lastname   String?
+  username   String?
+  email      String     @unique
+  password   String?
+  created_at DateTime?  @default(now())
+  updated_at DateTime?  @updatedAt
+  school_id  Int?
+  schools    Schools?   @relation(fields: [school_id], references: [id])
+  sessions   Sessions[]
+  tests      Tests[]
+
+  @@index([school_id], map: "Users_school_id_fkey")
+}
+
+model Schools {
+  id     Int     @id @default(autoincrement())
+  name   String?
+  adress String?
+  users  Users[]
+}
+
+model Roles {
+  id       Int        @id @default(autoincrement())
+  entitle  String?
+  sessions Sessions[]
+}
+
+model Tests {
+  id       Int        @id @default(autoincrement())
+  user_id  Int?
+  users    Users?     @relation(fields: [user_id], references: [id])
+  sessions Sessions[]
+
+  @@index([user_id], map: "Tests_user_id_fkey")
+}
+
+model Sessions {
+  user_id Int
+  role_id Int
+  test_id Int
+  date    DateTime @default(now())
+  mark    String?
+  roles   Roles    @relation(fields: [role_id], references: [id])
+  test    Tests    @relation(fields: [test_id], references: [id])
+  users   Users    @relation(fields: [user_id], references: [id])
+
+  @@id([user_id, role_id, test_id, date])
+  @@index([role_id], map: "Sessions_role_id_fkey")
+  @@index([test_id], map: "Sessions_test_id_fkey")
+}
