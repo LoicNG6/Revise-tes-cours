@@ -1,34 +1,31 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import MainContainer from "../components/styles/Containers";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import Registration from "./auth/registration/Register";
+import Login from "./auth/login/Login";
 const Stack = createNativeStackNavigator();
 
-
-function Login() {
-    return (
-        <View>
-            <Text>In the Login page</Text>
-        </View>
-    );
-}
-function Registration() {
-    return (
-        <View>
-            <Text>In the Registration page</Text>
-        </View>
-    );
-}
-
 export default function Home() {
+    const [items, setItems] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("https://localhost:3001/");
+                const json = await response.json();
+                console.log(json);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+        fetchData();
+    }, [])
+
     return (
         <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="HomePage"
-            >
+            <Stack.Navigator initialRouteName="HomePage">
                 <Stack.Screen name="HomePage" component={HomePage} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Registration" component={Registration} />

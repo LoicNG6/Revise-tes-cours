@@ -8,7 +8,8 @@ const port = 3001;
 
 app.get('/', async (req, res) => {
   var allUsers = await prisma.users.findMany();
-  res.json(allUsers);
+  console.table(allUsers);
+  res.send(allUsers);
 })
 
 app.get('/create', async (req, res) => {
