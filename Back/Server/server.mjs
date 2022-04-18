@@ -5,10 +5,13 @@ const {PrismaClient} = pkg;
 const prisma = new PrismaClient();
 const app = express();
 const port = 3001;
+const wifi_host = '192.168.1.26';
 
 app.get('/', async (req, res) => {
   var allUsers = await prisma.users.findMany();
-  console.table(allUsers);
+  // console.table(allUsers);
+  // console.log(req.headers.host);
+  
   res.send(allUsers);
 })
 
@@ -25,7 +28,7 @@ app.get('/create', async (req, res) => {
 
 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}.
-  Go to the folloing link : http://localhost:${port}/`);
+app.listen(port, wifi_host, () => {
+  console.log(`To see the server, Go to the folloing link :
+  http://${wifi_host}:${port}/`);
 })

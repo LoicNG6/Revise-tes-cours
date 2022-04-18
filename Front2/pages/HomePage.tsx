@@ -6,24 +6,27 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Registration from "./auth/registration/Register";
 import Login from "./auth/login/Login";
+import { result } from "./auth/FetchDatabase";
+
 const Stack = createNativeStackNavigator();
 
 export default function Home() {
-    const [items, setItems] = useState();
+    const [items, setItems] = useState([{}]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://localhost:3001/");
-                const json = await response.json();
-                console.log(json);
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-        fetchData();
+        setItems(result);
     }, [])
 
     return (
+        // <View>
+        //     <Text>
+        //         Hello
+        //     </Text>
+        //     {items.map(i =>( 
+        //             <Text>{i.lastname}</Text>
+        //         ))
+        //     }
+        // </View>
         <NavigationContainer>
             <Stack.Navigator initialRouteName="HomePage">
                 <Stack.Screen name="HomePage" component={HomePage} options={{ headerShown: false }} />
