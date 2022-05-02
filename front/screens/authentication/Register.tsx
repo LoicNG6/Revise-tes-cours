@@ -7,7 +7,7 @@ import {
     Image,
     Pressable
 } from "react-native";
-import MainContainer from "../../../components/styles/Containers";
+import MainContainer from "../../components/styles/Container";
 import { Picker } from '@react-native-picker/picker';
 
 
@@ -26,7 +26,7 @@ export default function Registration() {
         </Picker>
       </View>
     );
-    // const logoPath = require('../../../assets/images/rte-logo.png');
+    // const logoPath = require('../../assets/images/rte-logo.png');
 
     // const [is_etudiant, set_is_etudiant] = useState(false);
     // const [is_lyceen, set_is_lyceen] = useState(false);
@@ -142,8 +142,6 @@ const RegisterStyle = StyleSheet.create({
         letterSpacing: 0.25,
         borderWidth: 1,
     },
-
-
 
     button: {
         alignItems: 'center',

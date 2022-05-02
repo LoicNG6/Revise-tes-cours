@@ -6,12 +6,10 @@ const prisma = new PrismaClient();
 const app = express();
 const port = 3001;
 const wifi_host = '192.168.1.26';
+const ntr_univ_wifi_host = '172.20.10.9';
 
 app.get('/', async (req, res) => {
   var allUsers = await prisma.users.findMany();
-  // console.table(allUsers);
-  // console.log(req.headers.host);
-  
   res.send(allUsers);
 })
 

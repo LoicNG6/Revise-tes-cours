@@ -1,52 +1,44 @@
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
+import LinearGradient from 'react-native-linear-gradient';
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import MainContainer from "../components/styles/Containers";
+import MainContainer from '../../components/styles/Container';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Registration from "./auth/registration/Register";
-import Login from "./auth/login/Login";
-import { result } from "./auth/FetchDatabase";
+import Registration from "../authentication/Register";
+import Login from "../authentication/Login";
+import { result } from "../../database/FetchDatabase";
 
 const Stack = createNativeStackNavigator();
 
 export default function Home() {
-    const [items, setItems]:any = useState([{}]);
+    // const [items, setItems]:any = useState([{}]);
 
-    useEffect(() => {
-        // setItems(result);
-        // console.log(items);
-        // items.map(item => {
-        //     console.log(item.id)
-        // })
-    }, []);
+    // useEffect(() => {
+    //     setItems(result);
+    //     console.log(items);
+    //     items.map(item => {
+    //         console.log(item.id)
+    //     })
+    // }, []);
 
     return (
-        // <View style={HomePageStyle.mainContainer}>
-            
-        //         {items.map(item => (
-        //             <Text key={item.id}>
-        //                 {item.firstname}
-        //             </Text>
-        //         ))}
-            
-        // </View>
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="HomePage">
-                <Stack.Screen name="HomePage" component={HomePage} options={{ headerShown: false }} />
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-                <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }}/>
+            <Stack.Navigator initialRouteName="Welcome">
+                <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Registration" component={Registration} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
-function HomePage({ navigation }: any) {
-    const topLine =
-        "Le meilleur investissement que tu puisses faire est celui que tu fais en toi, en ta matière grise." +
+function Welcome({ navigation }: any) {
+    const topLine = "Le meilleur investissement que tu puisses faire est celui que tu fais en toi, en ta matière grise." +
         "Prépare ton avenir avec Révise tes exams." +
         "Trouve tous les sujets d'examens de toutes les fac de ta région ici.";
-    const logoPath = require('../assets/images/rte-logo.png');
+    const logoPath = require('../../assets/images/rte-logo.png');
+//   il faut que j'utilise mes useState dans un useEffect() en gros dans un constructeur
+  
     const [isPressed, setIsPressed] = useState(false);
     const [isLogin, SetIsLogin] = useState(false);
 
@@ -65,14 +57,14 @@ function HomePage({ navigation }: any) {
             SetIsLogin(false);
         }, 1000);
     }
-
+    
     return (
         <View style={{ flex: 1 }}>
             <LinearGradient
                 colors={['#CC9644', '#90621C']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={HomePageStyle.mainContainer}
+                style={WelcomeStyle.mainContainer}
             >
                 <View style={{ flex: 0.8, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'column' }}>
@@ -80,7 +72,7 @@ function HomePage({ navigation }: any) {
                     </View>
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={MainContainer.title1}>Révise tes exams</Text>
-                        <Text style={HomePageStyle.tagline}>
+                        <Text style={WelcomeStyle.tagline}>
                             {topLine}
                         </Text>
                     </View>
@@ -108,12 +100,11 @@ function HomePage({ navigation }: any) {
                     </View>
                 </View>
             </LinearGradient>
-
         </View>
     );
 }
 
-const HomePageStyle = StyleSheet.create({
+const WelcomeStyle = StyleSheet.create({
     mainContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -126,7 +117,6 @@ const HomePageStyle = StyleSheet.create({
         marginTop: 8,
     },
 });
-
 
 const LoginRegistrationStyle = StyleSheet.create({
     button: {
