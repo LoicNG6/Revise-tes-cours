@@ -37,8 +37,7 @@ function Welcome({ navigation }: any) {
         "Prépare ton avenir avec Révise tes exams." +
         "Trouve tous les sujets d'examens de toutes les fac de ta région ici.";
     const logoPath = require('../../assets/images/rte-logo.png');
-//   il faut que j'utilise mes useState dans un useEffect() en gros dans un constructeur
-  
+
     const [isPressed, setIsPressed] = useState(false);
     const [isLogin, SetIsLogin] = useState(false);
 
@@ -57,14 +56,14 @@ function Welcome({ navigation }: any) {
             SetIsLogin(false);
         }, 1000);
     }
-    
+
     return (
         <View style={{ flex: 1 }}>
             <LinearGradient
                 colors={['#CC9644', '#90621C']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={WelcomeStyle.mainContainer}
+                style={[MainContainer.container, {padding: 30}]}
             >
                 <View style={{ flex: 0.8, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'column' }}>
@@ -76,13 +75,17 @@ function Welcome({ navigation }: any) {
                             {topLine}
                         </Text>
                     </View>
-                    <View style={LoginRegistrationStyle.buttonContainer}>
+                    <View style={ButtonStyles.buttonContainer}>
                         <View style={{ flexDirection: 'column' }}>
                             <Pressable
                                 onPress={() => goTo('Login')}
-                                style={isPressed && isLogin ? LoginRegistrationStyle.pressed : LoginRegistrationStyle.button}
+                                style={[ButtonStyles.button, isPressed && isLogin ? ButtonStyles.pressed_button : null]}
                             >
-                                <Text style={isPressed && isLogin ? LoginRegistrationStyle.pressed_text : LoginRegistrationStyle.text} >
+                                <Text style={[
+                                    ButtonStyles.button_text,
+                                    isPressed && isLogin
+                                        ? ButtonStyles.pressed_button_text : ButtonStyles.unpressed_button_text
+                                ]}>
                                     Connexion
                                 </Text>
                             </Pressable>
@@ -90,9 +93,13 @@ function Welcome({ navigation }: any) {
                         <View style={{ flexDirection: 'column' }}>
                             <Pressable
                                 onPress={() => goTo('Registration')}
-                                style={isPressed && !isLogin ? LoginRegistrationStyle.pressed : LoginRegistrationStyle.button}
+                                style={[ButtonStyles.button, isPressed && !isLogin ? ButtonStyles.pressed_button : null]}
                             >
-                                <Text style={isPressed && !isLogin ? LoginRegistrationStyle.pressed_text : LoginRegistrationStyle.text}>
+                                <Text style={[
+                                    ButtonStyles.button_text,
+                                    isPressed && !isLogin
+                                        ? ButtonStyles.pressed_button_text : ButtonStyles.unpressed_button_text
+                                ]}>
                                     Inscription
                                 </Text>
                             </Pressable>
@@ -105,12 +112,6 @@ function Welcome({ navigation }: any) {
 }
 
 const WelcomeStyle = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        flexDirection: 'column',
-        padding: 30,
-    },
     tagline: {
         fontSize: 23,
         color: 'white',
@@ -118,7 +119,7 @@ const WelcomeStyle = StyleSheet.create({
     },
 });
 
-const LoginRegistrationStyle = StyleSheet.create({
+const ButtonStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -129,29 +130,20 @@ const LoginRegistrationStyle = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'white',
     },
-    pressed: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 15,
-        paddingHorizontal: 25,
-        borderRadius: 50,
-        elevation: 3,
-        borderWidth: 2,
-        borderColor: 'white',
+    pressed_button: {
         backgroundColor: 'rgb(250, 250, 255)',
     },
-    pressed_text: {
+
+    button_text: {
         fontSize: 16,
         lineHeight: 21,
         fontWeight: 'bold',
-        letterSpacing: 0.25,
+        letterSpacing: 0.25
+    },
+    pressed_button_text: {
         color: 'black',
     },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
+    unpressed_button_text: {
         color: 'white',
         textDecorationLine: 'underline',
     },
