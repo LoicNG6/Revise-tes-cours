@@ -9,12 +9,12 @@ import {
   Pressable,
 } from "react-native";
 import MainContainer from "../../components/styles/Container";
-import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 export default function Registration() {
   const logoPath = require('../../assets/images/rte-logo.png');
-  // const nextIconPath = require('../../assets/icons/arrow_icon.svg');
-  const [diploma, setDiploma] = useState("none");
 
   // Declare all states
   const [is_etudiant, set_is_etudiant] = useState(false);
@@ -40,6 +40,8 @@ export default function Registration() {
       "Doctorat",
     ] : [];
 
+  const [registration_b, setRegistrationB] = useState(false);
+
   // modification of states
   const onChangeStatus = (name: string) => {
     if (name == 'lyceen') {
@@ -59,7 +61,11 @@ export default function Registration() {
     }));
   };
 
-  // just to see school object 
+  const goTo = () => {
+    setRegistrationB(true);
+  };
+
+  // just to see school object
   if (school.year_of_graduation) console.log(school);
 
   return (
@@ -211,13 +217,21 @@ export default function Registration() {
             </View>
 
             <View style={{
-              flex: 0.13
+              flex: 0.13,
             }}>
+              <Pressable
+                onPress={() => goTo()}
+                style={registration_b ? [RegisterStyle.pressed] : [RegisterStyle.button]}
+              >
+                <Text style={registration_b ? [RegisterStyle.pressed_text] : [RegisterStyle.text]}>
+                  Suivant
+                </Text>
+              </Pressable>
             </View>
           </View>
         </View>
       </LinearGradient >
-    </View >
+    </View>
   );
 }
 
