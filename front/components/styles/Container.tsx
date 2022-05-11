@@ -44,4 +44,31 @@ const Button = StyleSheet.create({
         letterSpacing: 0.25,
     }
 });
-export {MainContainer, Button};
+
+const RegistrationPage = StyleSheet.create({
+    main: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    title: {
+        color: 'white',
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+    input_container: {
+        borderWidth: 1,
+        borderColor: 'white',
+        justifyContent: "center",
+        alignItems: 'center',
+        width: 320,
+        height: 35,
+    },
+    input_label: {
+        color: 'white',
+        fontSize: 16,
+        marginBottom: 8,
+    },
+})
+export { MainContainer, Button, RegistrationPage };

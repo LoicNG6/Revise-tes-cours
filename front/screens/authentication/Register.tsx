@@ -8,13 +8,11 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import { MainContainer, Button } from "../../components/styles/Container";
+import { MainContainer, Button, RegistrationPage } from "../../components/styles/Container";
 import SelectDropdown from 'react-native-select-dropdown';
-import RegisterDatas from "./RegisterDatas";
+import { RegisterDatas, logo_path } from "./RegisterDatas";
 
-export default function Registration() {
-  const logoPath = require('../../assets/images/rte-logo.png');
-
+export default function Registration({ navigation }: any) {
   //Declare all states
   const [is_etudiant, set_is_etudiant] = useState(null);
   const [is_lyceen, set_is_lyceen] = useState(null);
@@ -51,7 +49,6 @@ export default function Registration() {
       set_is_etudiant(true);
     }
   }
-
   const onChangeSchool = (field, value) => {
     setSchool(prevState => ({
       ...prevState,
@@ -59,6 +56,8 @@ export default function Registration() {
     }));
   };
 
+
+  //Redirections
   const checkVariables = () => {
     var is_empty = false;
     Object.values(school).map((element => {
@@ -73,7 +72,6 @@ export default function Registration() {
     }
     return is_empty;
   }
-
   const goToRegistrationB = () => {
     if (checkVariables() == false) {
       RegisterDatas({
@@ -81,6 +79,7 @@ export default function Registration() {
         status: is_etudiant == true ? 'étudiant' : 'lycéen',
       });
     }
+    navigation.navigate('UserInformation');
   };
 
   return (
@@ -92,37 +91,35 @@ export default function Registration() {
         style={[MainContainer.container, { padding: 10, paddingTop: 0 }]}
       >
         <View style={[MainContainer.container]}>
-          <View style={[RegisterStyle.main]}>
-
+          <View style={[RegistrationPage.main]}>
             <View>
-              <Image source={logoPath} style={MainContainer.logo_in_the_app} />
+              <Image source={logo_path} style={MainContainer.logo_in_the_app} />
             </View>
-
             <View style={[
-              RegisterStyle.container,
               {
+                alignItems: 'center',
                 flex: 0.2,
               }
             ]}>
               <View>
-                <Text style={[RegisterStyle.text]}>
+                <Text style={[RegistrationPage.title]}>
                   Informations relatives à mon établissement
                 </Text>
               </View>
               <View>
                 <Text style={[
-                  RegisterStyle.text,
+                  RegistrationPage.title,
                   { marginTop: 20, marginBottom: 10 }
                 ]}>
                   Je suis :
                 </Text>
               </View>
-              <View style={[RegisterStyle.status_type]}>
+              <View style={[RegisterStyle.choice_button]}>
                 <Pressable
                   onPress={() => onChangeStatus('lyceen')}
                   style={[Button.base, is_lyceen ? Button.pressed : null]}
                 >
-                  <Text style={is_lyceen ? Button.pressed_text : RegisterStyle.text}>
+                  <Text style={is_lyceen ? Button.pressed_text : RegistrationPage.title}>
                     Lycéen(ne)
                   </Text>
                 </Pressable>
@@ -130,7 +127,7 @@ export default function Registration() {
                   onPress={() => onChangeStatus('')}
                   style={[is_etudiant ? Button.pressed : null, Button.base]}
                 >
-                  <Text style={is_etudiant ? Button.pressed_text : RegisterStyle.text}>
+                  <Text style={is_etudiant ? Button.pressed_text : RegistrationPage.title}>
                     Étudiant(e)
                   </Text>
                 </Pressable>
@@ -138,18 +135,17 @@ export default function Registration() {
             </View>
 
             <View style={[
-              RegisterStyle.container,
               {
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
-                flex: 0.6,
+                flex: 0.5,
               }
             ]}>
               <View>
-                <Text style={[RegisterStyle.label]}>
+                <Text style={[RegistrationPage.input_label]}>
                   Nom de l'établissement
                 </Text>
-                <View style={[RegisterStyle.establishment,]}>
+                <View style={[RegistrationPage.input_container]}>
                   <TextInput
                     value={school.name}
                     onChangeText={value => onChangeSchool('name', value)}
@@ -160,10 +156,10 @@ export default function Registration() {
                 </View>
               </View>
               <View>
-                <Text style={[RegisterStyle.label]}>
+                <Text style={[RegistrationPage.input_label]}>
                   Adresse de l'établissement
                 </Text>
-                <View style={RegisterStyle.establishment}>
+                <View style={RegistrationPage.input_container}>
                   <TextInput
                     value={school.address}
                     onChangeText={value => onChangeSchool('address', value)}
@@ -174,7 +170,7 @@ export default function Registration() {
                 </View>
               </View>
               <View>
-                <Text style={[RegisterStyle.label]}>
+                <Text style={[RegistrationPage.input_label]}>
                   Diplôme préparé
                 </Text>
                 <SelectDropdown
@@ -202,7 +198,7 @@ export default function Registration() {
                 />
               </View>
               <View>
-                <Text style={[RegisterStyle.label]}>
+                <Text style={[RegistrationPage.input_label]}>
                   Année d'obtention
                 </Text>
                 <SelectDropdown
@@ -232,14 +228,14 @@ export default function Registration() {
             </View>
 
             <View style={{
-              flex: 0.13,
+              flex: 0.15,
               justifyContent: "center",
             }}>
               <Pressable
                 onPress={() => goToRegistrationB()}
                 style={[registration_b ? Button.pressed : null, Button.base]}
               >
-                <Text style={registration_b ? [Button.pressed_text] : [RegisterStyle.text]}>
+                <Text style={registration_b ? [Button.pressed_text] : [RegistrationPage.title]}>
                   Suivant
                 </Text>
               </Pressable>
@@ -251,22 +247,13 @@ export default function Registration() {
   );
 }
 
+
+//Styles of the current component
 const RegisterStyle = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
-  main: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  text: {
-    color: 'white',
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  status_type: {
+  choice_button: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -284,13 +271,8 @@ const RegisterStyle = StyleSheet.create({
   select: {
     borderWidth: 1,
     borderColor: 'white',
-    width: 350,
-    height: 50,
+    width: 340,
+    height: 35,
     backgroundColor: null,
-  },
-  label: {
-    color: 'white',
-    fontSize: 18,
-    marginBottom: 10,
   },
 })

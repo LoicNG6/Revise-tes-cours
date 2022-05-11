@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-community/masked-view';
 import ProgressBar from "react-native-animated-progress";
 import {MainContainer, Button} from '../../components/styles/Container';
-import Home from './Home';
+import Homes from '../../routes/Homes';
 
 export default function Loading() {
     var logoPath = require('../../assets/images/rte-logo.png');
@@ -59,7 +59,7 @@ export default function Loading() {
         );
     } else {
         return (
-            <Home />
+            <Homes />
         );
     }
 
