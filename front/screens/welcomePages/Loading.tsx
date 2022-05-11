@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-community/masked-view';
 import ProgressBar from "react-native-animated-progress";
-import MainContainer from '../../components/styles/Container';
+import {MainContainer, Button} from '../../components/styles/Container';
 import Home from './Home';
 
 export default function Loading() {

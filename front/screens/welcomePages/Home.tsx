@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LinearGradient from 'react-native-linear-gradient';
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import MainContainer from '../../components/styles/Container';
+import { MainContainer, Button } from '../../components/styles/Container';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Registration from "../authentication/Register";
@@ -37,7 +37,6 @@ function Welcome({ navigation }: any) {
         "Prépare ton avenir avec Révise tes exams." +
         "Trouve tous les sujets d'examens de toutes les fac de ta région ici.";
     const logoPath = require('../../assets/images/rte-logo.png');
-
     const [isPressed, setIsPressed] = useState(false);
     const [isLogin, SetIsLogin] = useState(false);
 
@@ -63,7 +62,7 @@ function Welcome({ navigation }: any) {
                 colors={['#CC9644', '#90621C']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={[MainContainer.container, {padding: 30}]}
+                style={[MainContainer.container, { padding: 30 }]}
             >
                 <View style={{ flex: 0.8, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'column' }}>
@@ -79,12 +78,11 @@ function Welcome({ navigation }: any) {
                         <View style={{ flexDirection: 'column' }}>
                             <Pressable
                                 onPress={() => goTo('Login')}
-                                style={[ButtonStyles.button, isPressed && isLogin ? ButtonStyles.pressed_button : null]}
+                                style={[Button.base, isPressed && isLogin ? Button.pressed : null]}
                             >
                                 <Text style={[
-                                    ButtonStyles.button_text,
-                                    isPressed && isLogin
-                                        ? ButtonStyles.pressed_button_text : ButtonStyles.unpressed_button_text
+                                    Button.pressed_text,
+                                    !isPressed ? ButtonStyles.unpressed_button_text : null,
                                 ]}>
                                     Connexion
                                 </Text>
@@ -93,12 +91,11 @@ function Welcome({ navigation }: any) {
                         <View style={{ flexDirection: 'column' }}>
                             <Pressable
                                 onPress={() => goTo('Registration')}
-                                style={[ButtonStyles.button, isPressed && !isLogin ? ButtonStyles.pressed_button : null]}
+                                style={[Button.base, isPressed && !isLogin ? Button.pressed : null]}
                             >
                                 <Text style={[
-                                    ButtonStyles.button_text,
-                                    isPressed && !isLogin
-                                        ? ButtonStyles.pressed_button_text : ButtonStyles.unpressed_button_text
+                                    Button.pressed_text,
+                                    !isPressed ? ButtonStyles.unpressed_button_text : null,
                                 ]}>
                                     Inscription
                                 </Text>
@@ -120,29 +117,6 @@ const WelcomeStyle = StyleSheet.create({
 });
 
 const ButtonStyles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 15,
-        paddingHorizontal: 25,
-        borderRadius: 50,
-        elevation: 3,
-        borderWidth: 2,
-        borderColor: 'white',
-    },
-    pressed_button: {
-        backgroundColor: 'rgb(250, 250, 255)',
-    },
-
-    button_text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25
-    },
-    pressed_button_text: {
-        color: 'black',
-    },
     unpressed_button_text: {
         color: 'white',
         textDecorationLine: 'underline',

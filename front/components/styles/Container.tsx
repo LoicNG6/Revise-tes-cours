@@ -20,7 +20,28 @@ const MainContainer = StyleSheet.create({
         width: 80,
         height: 80,
         tintColor: 'white',
-    }
+    },
 });
 
-export default MainContainer;
+const Button = StyleSheet.create({
+    base: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 15,
+        paddingHorizontal: 25,
+        borderRadius: 50,
+        elevation: 3,
+        borderWidth: 2,
+        borderColor: 'white',
+    },
+    pressed: {
+        backgroundColor: 'rgb(250, 250, 255)',
+    },
+    pressed_text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+    }
+});
+export {MainContainer, Button};

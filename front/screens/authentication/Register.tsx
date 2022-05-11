@@ -8,17 +8,16 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import MainContainer from "../../components/styles/Container";
+import { MainContainer, Button } from "../../components/styles/Container";
 import SelectDropdown from 'react-native-select-dropdown';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import RegisterDatas from "./RegisterDatas";
 
 export default function Registration() {
   const logoPath = require('../../assets/images/rte-logo.png');
 
-  // Declare all states
-  const [is_etudiant, set_is_etudiant] = useState(false);
-  const [is_lyceen, set_is_lyceen] = useState(false);
+  //Declare all states
+  const [is_etudiant, set_is_etudiant] = useState(null);
+  const [is_lyceen, set_is_lyceen] = useState(null);
 
   const [school, setSchool] = useState({
     name: null,
@@ -28,7 +27,6 @@ export default function Registration() {
   });
 
   const graduation_year = ["Choisir l'année", "2022", "2023", "2024", "2025", "2026", "2027"]
-
   const diploma_types = is_lyceen
     ? ["Choisir le diplôme", "Baccalauréat"]
     : is_etudiant ? [
@@ -42,15 +40,15 @@ export default function Registration() {
 
   const [registration_b, setRegistrationB] = useState(false);
 
-  // modification of states
+  //Modification of states
   const onChangeStatus = (name: string) => {
     if (name == 'lyceen') {
       set_is_etudiant(false)
-      set_is_lyceen(!is_lyceen);
+      set_is_lyceen(true);
     }
     else {
       set_is_lyceen(false);
-      set_is_etudiant(!is_etudiant);
+      set_is_etudiant(true);
     }
   }
 
@@ -61,12 +59,29 @@ export default function Registration() {
     }));
   };
 
-  const goTo = () => {
-    setRegistrationB(true);
-  };
+  const checkVariables = () => {
+    var is_empty = false;
+    Object.values(school).map((element => {
+      if (element == undefined) {
+        is_empty = true;
+        return;
+      }
+    }));
 
-  // just to see school object
-  if (school.year_of_graduation) console.log(school);
+    if ((is_etudiant && is_lyceen) == null && is_empty == false) {
+      return;
+    }
+    return is_empty;
+  }
+
+  const goToRegistrationB = () => {
+    if (checkVariables() == false) {
+      RegisterDatas({
+        school: school,
+        status: is_etudiant == true ? 'étudiant' : 'lycéen',
+      });
+    }
+  };
 
   return (
     <View style={{ flex: 1, }}>
@@ -105,17 +120,17 @@ export default function Registration() {
               <View style={[RegisterStyle.status_type]}>
                 <Pressable
                   onPress={() => onChangeStatus('lyceen')}
-                  style={is_lyceen ? RegisterStyle.pressed : RegisterStyle.button}
+                  style={[Button.base, is_lyceen ? Button.pressed : null]}
                 >
-                  <Text style={is_lyceen ? RegisterStyle.pressed_text : RegisterStyle.text}>
+                  <Text style={is_lyceen ? Button.pressed_text : RegisterStyle.text}>
                     Lycéen(ne)
                   </Text>
                 </Pressable>
                 <Pressable
                   onPress={() => onChangeStatus('')}
-                  style={is_etudiant ? RegisterStyle.pressed : RegisterStyle.button}
+                  style={[is_etudiant ? Button.pressed : null, Button.base]}
                 >
-                  <Text style={is_etudiant ? RegisterStyle.pressed_text : RegisterStyle.text}>
+                  <Text style={is_etudiant ? Button.pressed_text : RegisterStyle.text}>
                     Étudiant(e)
                   </Text>
                 </Pressable>
@@ -218,12 +233,13 @@ export default function Registration() {
 
             <View style={{
               flex: 0.13,
+              justifyContent: "center",
             }}>
               <Pressable
-                onPress={() => goTo()}
-                style={registration_b ? [RegisterStyle.pressed] : [RegisterStyle.button]}
+                onPress={() => goToRegistrationB()}
+                style={[registration_b ? Button.pressed : null, Button.base]}
               >
-                <Text style={registration_b ? [RegisterStyle.pressed_text] : [RegisterStyle.text]}>
+                <Text style={registration_b ? [Button.pressed_text] : [RegisterStyle.text]}>
                   Suivant
                 </Text>
               </Pressable>
@@ -237,7 +253,6 @@ export default function Registration() {
 
 const RegisterStyle = StyleSheet.create({
   container: {
-
     alignItems: 'center',
   },
   main: {
@@ -245,45 +260,11 @@ const RegisterStyle = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-
   },
   text: {
     color: 'white',
     fontSize: 17,
     fontWeight: 'bold',
-  },
-
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderRadius: 50,
-    elevation: 3,
-    borderWidth: 2,
-    borderColor: 'white',
-  },
-  pressed: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderRadius: 50,
-    elevation: 3,
-    borderColor: 'white',
-    backgroundColor: 'rgb(250, 250, 255)',
-  },
-  pressed_text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'black',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
   },
   status_type: {
     flexDirection: "row",
