@@ -5,7 +5,24 @@ import { MainContainer, Button, RegistrationPage, } from "../../components/style
 import { logo_path } from "./RegisterDatas";
 
 export default function UserInformation() {
+    //declare state
     const [validate, setValidate] = useState(false);
+    const [information, setInformation] = useState({
+        username: null,
+        firstname: null,
+        lastname: null,
+        email: null,
+        password: null,
+    });
+
+    //modify states
+    const onChangeInformation = (field, value) => {
+        setInformation(prevState => ({
+            ...prevState,
+            [field]: value,
+        }));
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <LinearGradient
@@ -19,11 +36,11 @@ export default function UserInformation() {
                         flex: 1,
                         justifyContent: 'space-between',
                     }]}>
-                        <View style={[{ flex:0.1, alignItems:"center",}]}>
+                        <View style={[{ flex: 0.1, alignItems: "center", }]}>
                             <Image source={logo_path} style={MainContainer.logo_in_the_app} />
                         </View>
 
-                        <View style={[ {flex: 0.1, alignItems: 'center', justifyContent:"center"}]}>
+                        <View style={[{ flex: 0.1, alignItems: 'center', justifyContent: "center" }]}>
                             <View>
                                 <Text style={[RegistrationPage.title]}>
                                     Informations Personnelles
@@ -44,6 +61,8 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.username}
+                                        onChangeText={value => onChangeInformation('username', value)}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>
@@ -55,6 +74,8 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.firstname}
+                                        onChangeText={value => onChangeInformation('firstname', value)}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>
@@ -66,6 +87,8 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.lastname}
+                                        onChangeText={value => onChangeInformation('lastname', value)}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>
@@ -77,6 +100,8 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.email}
+                                        onChangeText={value => onChangeInformation('email', value)}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>
@@ -88,6 +113,7 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.password}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>
@@ -99,6 +125,8 @@ export default function UserInformation() {
                                 </Text>
                                 <View style={[RegistrationPage.input_container]}>
                                     <TextInput
+                                        value={information.password}
+                                        onChangeText={value => onChangeInformation('password', value)}
                                         style={{ color: "white", fontSize: 17 }}
                                         placeholderTextColor="rgba(20,20,20,0.3)"
                                     ></TextInput>

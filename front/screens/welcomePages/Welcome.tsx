@@ -16,9 +16,9 @@ export default function Welcome({ navigation }: any) {
 
         if (name == "Login") {
             SetIsLogin(true);
-            navigation.navigate('Login');
+            navigation.navigate('Connexion');
         } else {
-            navigation.navigate('Registration');
+            navigation.navigate('Inscription 1/2');
         }
 
         setTimeout(() => {

@@ -24,7 +24,7 @@ export default function Registration({ navigation }: any) {
     year_of_graduation: null,
   });
 
-  const graduation_year = ["Choisir l'année", "2022", "2023", "2024", "2025", "2026", "2027"]
+  const graduation_year = ["Choisir l'année", "2022", "2023", "2024", "2025", "2026", "2027"];
   const diploma_types = is_lyceen
     ? ["Choisir le diplôme", "Baccalauréat"]
     : is_etudiant ? [
@@ -79,7 +79,7 @@ export default function Registration({ navigation }: any) {
         status: is_etudiant == true ? 'étudiant' : 'lycéen',
       });
     }
-    navigation.navigate('UserInformation');
+    navigation.navigate('Inscription 2/2');
   };
 
   return (
@@ -246,7 +246,6 @@ export default function Registration({ navigation }: any) {
     </View>
   );
 }
-
 
 //Styles of the current component
 const RegisterStyle = StyleSheet.create({

@@ -24,9 +24,9 @@ export default function Homes() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Welcome">
                 <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Registration" component={Registration} />
-                <Stack.Screen name="UserInformation" component={UserInformation} />
+                <Stack.Screen name="Connexion" component={Login} />
+                <Stack.Screen name="Inscription 1/2" component={Registration} />
+                <Stack.Screen name="Inscription 2/2" component={UserInformation} />
             </Stack.Navigator>
         </NavigationContainer>
     );

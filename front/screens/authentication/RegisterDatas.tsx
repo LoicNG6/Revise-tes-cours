@@ -16,7 +16,7 @@ function RegisterDatas(props) {
     if (props.status) user.status = props.status;
     if (props.information) user.information = props.information;
 
-    console.log(user);
+    console.log('user = ', user);
 
     return (
         <View></View>
